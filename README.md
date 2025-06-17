@@ -1,2 +1,7 @@
-# cooking_assistant_rag
-Cooking assistant in chat that can help you find the right recipe based on the ingridients or personal preferences
+# Chief Boris
+Персональный котошеф :paw_prints:
+
+Ссылка на бота: https://t.me/Cook_for_youu_bot 
+
+## Описание
+Проект представляет собой персонального ассистента по приготовлению блюд в виде чат-бота, основанного на системе контролируемой генерации RAG и промпт-инжиниринга.
