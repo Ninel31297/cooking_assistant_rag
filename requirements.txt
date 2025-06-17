@@ -1,0 +1,9 @@
+python-telegram-bot==20.3
+sentence-transformers
+faiss-cpu
+transformers
+torch
+nest_asyncio
+llama-index
+llama-index-llms-openrouter
+kagglehub
