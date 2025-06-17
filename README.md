@@ -1,7 +1,7 @@
 # Chief Boris
 Персональный котошеф :paw_prints:
 
-<img src="assets/welcome.png" alt="Привет" width="400"/>
+<img src="assets/Welcome.png" alt="Привет" width="400"/>
 
 Ссылка на бота: https://t.me/Cook_for_youu_bot 
 
