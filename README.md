@@ -1,75 +1,140 @@
-# Chief Boris
-Персональный котошеф :paw_prints:
+# Chief Boris 🍳🤖  
+**Personal Recipe Assistant powered by RAG + LLMs**
 
-![Приветствие от бота](Welcome.png)
+![Bot preview](Welcome.png)
 
-Ссылка на бота: https://t.me/Cook_for_youu_bot 
+🔗 Telegram bot: https://t.me/Cook_for_youu_bot  
 
-## Описание
-Проект представляет собой персонального ассистента по приготовлению блюд в виде чат-бота, основанного на системе контролируемой генерации RAG и промпт-инжиниринга. Бот помогает подобрать рецепты по запросу пользователя, учитывая предпочтения и аллергенные ингредиенты. Использует векторный поиск (FAISS) и генеративную модель (LLM) для пошагового рецепта с эмоджи.
+---
 
-## Датасет
-[Данные](https://drive.google.com/file/d/1UeYkiCsNkTpOF8qS-OUpfZ-uTLrunnb5/view?usp=sharing) — 27 тысяч рецептов, содержащие в себе название, ингридиенты, процесс приготовления, фото и ссылку на рецепт. 
+## 📌 Overview
 
-## Эмбеддинги
-  [Эмбеддинги](https://drive.google.com/file/d/1izJImuphXig22T_o4Rkhg5RRE572Bytx/view?usp=sharing) — созданы с помощью продвинутой модели, обученной для RAG —  intfloat/multilingual-e5-base и библиотеки для поиска по векторам FAISS.
+**Chief Boris** is a conversational AI recipe assistant built as a Telegram chatbot.  
+It uses a **Retrieval-Augmented Generation (RAG)** architecture combined with **prompt engineering** to provide personalized cooking recommendations.
 
-## 📦 Возможности
+The system retrieves relevant recipes using semantic search and generates structured, step-by-step cooking instructions via a large language model (LLM).
 
-- 🔎 **Поиск рецептов по ключевым словам**  
-  Например: `"хочу пасту с сыром"`
+Key capabilities:
+- semantic retrieval with vector search
+- multilingual embeddings
+- LLM-based recipe generation
+- personalization via constraints (allergies, exclusions)
 
-- ⚠️ **Настройка исключений**  
-  Учитываются аллергии и нежелательные ингредиенты
+---
 
-- 🧠 **Генерация пошагового рецепта с эмоджи через LLM**
+## 🧠 System Architecture
 
-- 🔁 **Кнопка "Хочу что-то другое"**  
-  Показывает альтернативные рецепты по запросу
+- Recipe dataset (~27,000 entries) is loaded and preprocessed
+- Text is encoded into dense embeddings using SentenceTransformers
+- Embeddings are indexed with FAISS for fast similarity search
+- User queries are matched to top-k relevant recipes
+- LLM generates structured cooking instructions
+- Personal constraints (e.g., allergens) are applied during retrieval and filtering
 
-- 🔗 **Ссылка на оригинальный рецепт**  
-  Добавляется в конце каждого сгенерированного рецепта
+---
 
+## 📊 Dataset
 
-  ## 🧠 Как работает бот
+The dataset contains 27,000+ recipes with:
+- recipe title  
+- ingredients  
+- cooking steps  
+- images  
+- external recipe links  
 
-- Загружает датасет с рецептами (`all_recepies_inter.csv`).
-- Преобразует текст рецептов в эмбеддинги с помощью `SentenceTransformer`.
-- Индексирует эмбеддинги с использованием `FAISS` для быстрого поиска по смыслу.
-- Принимает пользовательские сообщения в Telegram и находит наиболее подходящие рецепты.
-- Фильтрует блюда с учётом индивидуальных ограничений (например, аллергий).
-- Отправляет пользователю список подходящих рецептов с кратким аппетитным описанием.
+🔗 Dataset: https://drive.google.com/file/d/1UeYkiCsNkTpOF8qS-OUpfZ-uTLrunnb5/view?usp=sharing  
 
-## 🛠️ Используемые технологии
+---
 
-- **Python**: `asyncio`, `pandas`, `numpy`
-- **Telegram Bot API**: [`python-telegram-bot`](https://github.com/python-telegram-bot/python-telegram-bot)
-- **Модели эмбеддингов**: [`Sentence Transformers`](https://www.sbert.net/)
-- **Поисковый индекс**: [`FAISS`](https://github.com/facebookresearch/faiss)
-- **Генерация описаний**: `llama-index` через OpenRouter API
+## 🔢 Embeddings
 
+- Model: `intfloat/multilingual-e5-base`
+- Library: SentenceTransformers
+- Indexing: FAISS (Facebook AI Similarity Search)
 
-## Работа
+Embeddings enable semantic matching (e.g., “something cheesy and quick” → relevant pasta dishes).
 
-1. Запустить `embedding.ipynb` и сохранить файл с эмбеддингами `faiss_index.bin`, либо скачать его по [ссылке](https://drive.google.com/file/d/1izJImuphXig22T_o4Rkhg5RRE572Bytx/view?usp=sharing).
+🔗 Embeddings file: https://drive.google.com/file/d/1izJImuphXig22T_o4Rkhg5RRE572Bytx/view?usp=sharing  
 
-2. В блокнот `tg_bot.ipynb` загрузить файл с эмбеддингами `faiss_index.bin`, данные о рецептах `all_recepies_inter.csv` и фото для приветственного сообщения `Welcome.png`.
+---
 
-3. Создаём бота в BotFather и получаем токен, который сохраняем в переменную `BOT_TOKEN` в блокноте.
+## ⚙️ Features
 
-4. Получаем API-ключ для OpenRouter для модели генерации ответа и вставляем его в переменную `OPENROUTER_API_KEY`.
+- 🔎 **Semantic recipe search**
+  - Natural language queries (e.g., "pasta with cheese")
 
-5. Запускаем бота в блокноте, в разделе «Запуск».
+- ⚠️ **Personalized filtering**
+  - Excludes allergens and unwanted ingredients
 
-## 🧭 Основные кнопки управления
+- 🧠 **LLM-generated cooking instructions**
+  - Step-by-step structured recipes
 
-Бот использует удобные клавиатурные кнопки для быстрого взаимодействия:
+- 🔁 **Alternative recommendations**
+  - “Show me something else” returns non-repetitive results
 
-| Кнопка | Описание |
+- 🔗 **Source traceability**
+  - Each result includes a link to the original recipe
+
+---
+
+## 🔧 Tech Stack
+
+- Python: `asyncio`, `pandas`, `numpy`
+- NLP: `sentence-transformers`
+- Vector search: `FAISS`
+- LLM orchestration: `LlamaIndex`, OpenRouter API
+- Bot framework: `python-telegram-bot`
+
+---
+
+## 🏗️ How it works
+
+1. Load dataset (`all_recepies_inter.csv`)
+2. Generate embeddings for all recipes
+3. Build FAISS index for similarity search
+4. Receive user query via Telegram bot
+5. Retrieve top-k semantically similar recipes
+6. Apply user constraints (allergies, exclusions)
+7. Generate final response using LLM
+8. Return structured recipe output
+
+---
+
+## 🚀 Setup Instructions
+
+1. Run `embedding.ipynb` to create or load:
+   - `faiss_index.bin`
+
+2. Load into `tg_bot.ipynb`:
+   - FAISS index
+   - recipe dataset (`all_recepies_inter.csv`)
+   - `Welcome.png`
+
+3. Create a bot via BotFather:
+   - set `BOT_TOKEN`
+
+4. Add OpenRouter API key:
+   - `OPENROUTER_API_KEY`
+
+5. Run the bot from the notebook entry point
+
+---
+
+## 🎛️ Bot Interface
+
+| Button | Function |
 |--------|----------|
-| **⚙️ Настройки** | Включает режим ввода ингредиентов, которые пользователь хочет исключить (например, из-за аллергии или личных предпочтений). |
-| **🔁 Хочу что-то другое** | Показывает другие варианты блюд по тому же запросу, избегая повторов. |
-| **🔴 Сбросить поиск** | Полностью сбрасывает текущий запрос, найденные рецепты и фильтры — начинается новый поиск. |
-| **Название блюда** | При выводе рецептов бот отображает кнопки с названиями блюд — пользователь может выбрать интересующий вариант одним нажатием. |
+| ⚙️ Settings | Set excluded ingredients (allergies/preferences) |
+| 🔁 Show alternatives | Retrieve different recipes for the same query |
+| 🔴 Reset search | Clear current session and filters |
+| 🍽️ Recipe buttons | Select a specific recipe from results |
 
-Каждая клавиатура автоматически отображается в нужный момент: при запуске, после поиска или при сбросе.
+---
+
+## 💡 Key Engineering Highlights
+
+- Hybrid RAG architecture (vector search + LLM generation)
+- Real-world semantic retrieval system using FAISS
+- Constraint-aware recommendation pipeline
+- Multilingual embedding model for robust matching
+- Chat-based interface via Telegram bot API
